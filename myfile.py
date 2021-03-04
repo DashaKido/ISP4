@@ -1,4 +1,3 @@
-import numpy as np
 myA = [
  [  0,   0,   0,   0,   0],
  [  0,   0,   0,   0,   0],
@@ -89,4 +88,4 @@ enumerate(X)))
 # --- end of решение системы методом Гаусса (приведением к треугольному виду)
 print("Исходная система:")
 FancyPrint( myA, myB, None)
-Gauss(myA, myB)
+Gauss(myA, myB) 
