@@ -153,10 +153,10 @@ class TestStringMethods(unittest.TestCase):
             self.assertEqual(new_obj.arg, obj.arg)
             self.assertEqual(new_obj.arr, obj.arr)
             self.assertEqual(new_obj.static_m(1), obj.static_m(1))
-
+    #статический метод для проверки юниттестов
     @staticmethod
     def parse_to_str(f):
-        return serializer.LambdaPars.to_str(serializer.LambdaPars.parse_lambda(f))
+        return serializer.JsonSer.to_str(serializer.JsonSer.parse_lambda(f))
 
     def test_l_binary(self):
         self.assertEqual('lambda x: x + 1', self.parse_to_str(lambda x: x + 1))
