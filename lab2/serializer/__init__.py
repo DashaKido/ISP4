@@ -79,8 +79,9 @@ class JsonSer:
 
             if dict_len == 0:
                 string += '}'
-
+            #возвращаем пары(индексы и значения) из словаря(ключ и значение)
             for i, (key, val) in enumerate(obj.items()):
+                #если ключ это строка
                 if type(key) == str:
                     string += '"{}": {}'.format(key, JsonSer.dumps(val, type(val) == dict))
                 elif type(key) == tuple:
@@ -93,15 +94,16 @@ class JsonSer:
                     string += ', '
                 else:
                     string += '}'
-
+            #возвращаем полученную строку
             return string
+        #если обьект список
         elif type(obj) == list:
             string = '['
             list_len = len(obj)
 
             if list_len == 0:
                 return string + ']'
-
+             #возвращаем пары(индексы и значения) из обьекта
             for i, val in enumerate(obj):
                 string += JsonSer.dumps(val, type(val) == dict)
 
@@ -111,7 +113,10 @@ class JsonSer:
                     string += ']'
 
             return string 
+        #если обьект можно вызвать или это класс
         elif callable(obj) or inspect.isclass(obj):
+            #строка это возвращаемый исходный код обьекта в виде одной строки 
+            #заменяем кавычки
             string = inspect.getsource(obj).replace('"', "'")
             return '"' + string + '"'
         elif type(obj) == str:
@@ -120,34 +125,48 @@ class JsonSer:
             return 'true' if obj else 'false'
         elif type(obj) == type(None):
             return 'null'
+        #проверка на приметивные типы
         elif is_primitive(obj):
             return str(obj)
-
+        #если обьект это кортеж
         if type(obj) == tuple:
             return JSON_TUPLE_FLAG + JsonSer.dumps(list(obj), False)
-
+        #если обьект это множество
         if type(obj) == set:
             return JSON_SET_FLAG + JsonSer.dumps(list(obj), False)
-
+        #если ничего не прошло то вызываем функцию 
+        #преобразующую обьект в словарь
         return JsonSer.dumps(obj_to_dict(obj), False)
     #из файла в обьект
     def load(fp):
+        #перемещаем указаль на начало файла
         fp.seek(0)
+        #считываем и возвращаем все данные из файла
         string = fp.read()
+        #вызываем метод из строки в обьект
         return JsonSer.loads(string)  
     #из обьекта в файл
     def dump(obj, fp):
+        #вызываем метод из обьекта в строку
         string = JsonSer.dumps(obj)
+        #записываем в файл данные
         fp.write(string)
+        #сбрасываем данные из буфера файла
         fp.flush()
-    
+    #работа с глобальными переменными 
     def getFromGlobal(f):
+        #создаем глоб переменную
         global some_var
+        #задаем ей значение
         some_var = f
         ff = ''
+        #возвращаем словарь с глобальной таблицей символов опредеделенных в модуле
+        #при это м возвращаем пары(ключ, значение) для каждого элемента словаря
         for k,v in globals().items():
-            if v == f:
-                ff = some_var
+            #берем только значение и проверяем его с нашей переменной
+            if v == some_var:
+                ff = v
+        #вызываем метод из обьекта в строку
         return JsonSer.dumps(ff)
 
 class LambdaPars:
