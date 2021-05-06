@@ -1,8 +1,0 @@
-"class Some:
-    some = 1
-    arg = 2.2
-    arr = [True, 'some', 'string']
-    @staticmethod
-    def static_m(a):
-        return str(a) + 'Hi'
-"
