@@ -1,8 +1,6 @@
 import re
 
-s = "Natural-language processing (NLP) is an area of computer science " \
-    "and artificial intelligence concerned with the interactions " \
-    "between computers and human (natural) languages."
+s = "aa aa aa sa sa sa dd ww"
 
 s = s.split(' ')
 

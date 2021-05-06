@@ -1,6 +1,8 @@
 def cached(func):
     if not hasattr(func, 'cache'):
         func.cache = {}
+        # позиционное количество аргументов
+        # позиционное количество именованных аргументов
     def wrapper(*args, **kwargs):
         print(f'\nPrev cache: {func.cache}')
 

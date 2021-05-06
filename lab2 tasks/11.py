@@ -5,7 +5,7 @@ class MetaSingleton(type):
             cls._instances[cls] = super().__call__(*args, **kwargs)
         return cls._instances[cls]
         
-class A():
+class A(metaclass=MetaSingleton):
     def __call__(self):
         print('hi')
 
