@@ -5,10 +5,10 @@ import logging
 logging.basicConfig(level=logging.INFO)
 
 TOKEN = "1866001433:AAEBrJh0xKjxgrJWlA3wZ5N8aoSGtxmlNFk"
-BOT_VERSION = 0.1
-# База данных хранит выбранные юзером лиги
+BOT_VERSION = 0.2
+# База данных хранит выбранные юзером дедлайны
 BOT_DB_NAME = "users_deadlines"
-# Тестовые данные поддерживаемых лиг
+# Тестовые данные поддерживаемых дедлайнов
 BOT_DEADLINES = {
     "1": "ИСП лаб 1",
     "2": "МЧА лаб 1",
@@ -26,3 +26,6 @@ REDIS_HOST = 'localhost'
 REDIS_PORT = 6379
 # По умолчанию пароля нет. Он будет на сервере
 REDIS_PASSWORD = None
+
+MINUTE = 60
+YEAR = 60*60*24*366

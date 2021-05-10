@@ -3,15 +3,15 @@ import aiohttp
 from unittest import IsolatedAsyncioTestCase
 
 from database import cache, database
-from app import bot
+from app import bot, service
 
 
 class TestDatabase(IsolatedAsyncioTestCase):
     async def test_crud(self):
-        await database.insert_users(1111, "1 2 3")
-        self.assertEqual(await database.select_users(1111), ('1 2 3',))
-        await database.delete_users(1111)
-        self.assertEqual(await database.select_users(1111), None)
+        await database.insert_users(1113, "1 2 3")
+        self.assertEqual(await database.select_users(1113), ('1 2 3',))
+        await database.delete_users(1113)
+        self.assertEqual(await database.select_users(1113), None)
 
 
 class TestCache(unittest.TestCase):
@@ -33,6 +33,14 @@ class TestBot(IsolatedAsyncioTestCase):
 
         self.assertEqual(bot_info["username"], "lab3_deadlines_bot")
 
+class TestService(IsolatedAsyncioTestCase):
+    async def test_get_deadline_ids(self):
+        ids = await service.get_deadline_ids("1111")
+        self.assertEqual(type(ids), list)
+
+    async def test_get_last_results(self):
+        results = await service.get_last_results(["1", "2", "3"])
+        self.assertEqual(type(results), list)
 
 if __name__ == '__main__':
     unittest.main()
