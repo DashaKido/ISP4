@@ -122,7 +122,7 @@ async def set_or_update_config(callback_query: types.CallbackQuery = None,
         )
 
 
-@dp.callback_query_handler(lambda c: c.data[:8] in ['del_de', 'add_de'])
+@dp.callback_query_handler(lambda c: c.data[:6] in ['del_de', 'add_de'])
 async def update_deadlines_info(callback_query: types.CallbackQuery):
     """Добавление/удаление дедлайнов из кеша, обновление сообщения"""
     offset = callback_query.data.split("#")[-2]

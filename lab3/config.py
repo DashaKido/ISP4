@@ -10,15 +10,15 @@ BOT_VERSION = 0.2
 BOT_DB_NAME = "users_deadlines"
 # Тестовые данные поддерживаемых дедлайнов
 BOT_DEADLINES = {
-    "1": "ИСП лаб 1",
-    "2": "МЧА лаб 1",
-    "3": "ООП курсач",
+    "1": "ИСП",
+    "2": "МЧА",
+    "3": "ООП",
 }
 # Флаги для сообщений, emoji-код
 BOT_DEADLINES_FLAGS = {
-    "1": ":grimacing:",
-    "2": ":wink:",
-    "3": ":rage:",
+    "1": ":yellow_heart:",
+    "2": ":green_heart:",
+    "3": ":red_heart:",
 }
 
 # Данные redis-клиента
