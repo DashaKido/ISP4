@@ -13,12 +13,14 @@ BOT_DEADLINES = {
     "1": "ИСП",
     "2": "МЧА",
     "3": "ООП",
+    "4": "Физика",
 }
 # Флаги для сообщений, emoji-код
 BOT_DEADLINES_FLAGS = {
     "1": ":yellow_heart:",
     "2": ":green_heart:",
     "3": ":red_heart:",
+    "4": ":blue_heart:",
 }
 
 # Данные redis-клиента
@@ -29,3 +31,5 @@ REDIS_PASSWORD = None
 
 MINUTE = 60
 YEAR = 60*60*24*366
+
+QUOTES_API_URL = "http://api.forismatic.com/api/1.0/"

@@ -3,10 +3,10 @@ from aiogram import Bot, types
 from aiogram.contrib.middlewares.logging import LoggingMiddleware
 from aiogram.dispatcher import Dispatcher
 
-from config import TOKEN, YEAR, MINUTE
+from tg_bot.config import TOKEN, YEAR, MINUTE
 import app.service as s
 from app.dialogs import msg
-from database import database as db, cache
+from tg_bot.database import database as db, cache
 
 # стандартный код создания бота
 bot = Bot(token=TOKEN)

@@ -2,7 +2,7 @@ import unittest
 import aiohttp
 from unittest import IsolatedAsyncioTestCase
 
-from database import cache, database
+from tg_bot.database import cache, database
 from app import bot, service
 
 

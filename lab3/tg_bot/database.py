@@ -4,7 +4,7 @@ import sqlite3
 import redis
 import ujson
 
-import config
+from tg_bot import config
 
 
 # класс наследуется от redis.StrictRedis

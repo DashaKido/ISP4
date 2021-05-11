@@ -1,8 +1,8 @@
 from aiogram.types import ReplyKeyboardMarkup, KeyboardButton, \
                           InlineKeyboardMarkup, InlineKeyboardButton
 from emoji import emojize
-from config import BOT_DEADLINES, BOT_DEADLINES_FLAGS, MINUTE
-from database import cache, database as db
+from tg_bot.config import BOT_DEADLINES, BOT_DEADLINES_FLAGS, MINUTE
+from tg_bot.database import cache, database as db
 from app.dialogs import msg
 
 
