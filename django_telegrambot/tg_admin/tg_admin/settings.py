@@ -110,6 +110,4 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # настройки бота
 TOKEN = "1866001433:AAEBrJh0xKjxgrJWlA3wZ5N8aoSGtxmlNFk"
-PROXY_URL = 'https://telegg.ru/orig/bot'
 
-gh
