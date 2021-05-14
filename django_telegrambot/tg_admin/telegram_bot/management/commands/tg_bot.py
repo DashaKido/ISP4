@@ -1,11 +1,10 @@
 from django.core.management.base import BaseCommand
 from django.conf import settings
 from logging import getLogger
-from telegram import Bot
-from telegram import Update
 from telegram.ext import MessageHandler
 from telegram.ext import CallbackContext
 from telegram.ext import CommandHandler
+from telegram.ext import CallbackQueryHandler
 from telegram.ext import Filters
 from telegram.ext import Updater
 from telegram.utils.request import Request
@@ -65,21 +64,23 @@ def do_echo(update: Update, context: CallbackContext):
 @log_errors
 def do_settings(update: Update, context: CallbackContext):
     update.message.reply_text(
-        text=f'Тут должны быть настройки дедлайнов, но их пока нет(',
+        text='Выберите действие:',
+        reply_markup=get_keyboard_settings1(),
     )
 
 
 @log_errors
 def do_timer(update: Update, context: CallbackContext):
     update.message.reply_text(
-        text=f'1..2..3.. я думаю',
+        text='Выберите действие:',
+        reply_markup=get_base_inline_keyboard_timer(),
     )
 
 
 @log_errors
 def do_quote(update: Update, context: CallbackContext):
     update.message.reply_text(
-        text=f'Пока просто текст, но скоро что-то будет...',
+        text='Пока просто текст, но скоро что-то будет...',
     )
 
 
@@ -103,6 +104,7 @@ def do_start(update: Update, context: CallbackContext):
     name = update.message.from_user.first_name
     update.message.reply_text(
         text=f'Привет {name}. Я помогу тебе с отслеживание твоих дедлайнов.',
+        reply_markup=get_base_reply_keyboard(),
     )
 
 
@@ -138,22 +140,26 @@ class Command(BaseCommand):
             use_context=True,
             request_kwargs=settings.REQUEST_KWARGS,
         )
-        message_handler3 = CommandHandler('start', do_start)
-        updater.dispatcher.add_handler(message_handler3)
-        message_handler2 = CommandHandler('count', do_count)
-        updater.dispatcher.add_handler(message_handler2)
-        message_handler4 = CommandHandler('help', do_help)
-        updater.dispatcher.add_handler(message_handler4)
-        message_handler5 = CommandHandler('timer', do_timer)
-        updater.dispatcher.add_handler(message_handler5)
-        message_handler6 = CommandHandler('quote', do_quote)
-        updater.dispatcher.add_handler(message_handler6)
-        message_handler7 = CommandHandler('settings', do_settings)
-        updater.dispatcher.add_handler(message_handler7)
+        start_handler = CommandHandler('start', do_start)
+        updater.dispatcher.add_handler(start_handler)
+        count_handler = CommandHandler('count', do_count)
+        updater.dispatcher.add_handler(count_handler)
+        help_handler = CommandHandler('help', do_help)
+        updater.dispatcher.add_handler(help_handler)
+        timer_handler = CommandHandler('timer', do_timer)
+        updater.dispatcher.add_handler(timer_handler)
+        quote_handler = CommandHandler('quote', do_quote)
+        updater.dispatcher.add_handler(quote_handler)
+        settings_handler = CommandHandler('settings', do_settings)
+        updater.dispatcher.add_handler(settings_handler)
 
         message_handler = MessageHandler(Filters.text, do_echo)
         updater.dispatcher.add_handler(message_handler)
 
+        timer_button_handler = CallbackQueryHandler(callback=keyboard_callback_handler, pass_chat_data=True)
+        updater.dispatcher.add_handler(timer_button_handler)
+        settings_button_handler = CallbackQueryHandler(callback=keyboard_callback_handler, pass_chat_data=True)
+        updater.dispatcher.add_handler(settings_button_handler)
         # 3 -- запустить бесконечную обработку входящих сообщений
         updater.start_polling()
         updater.idle()
