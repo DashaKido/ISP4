@@ -109,5 +109,11 @@ STATIC_URL = '/static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # настройки бота
-TOKEN = "1866001433:AAEBrJh0xKjxgrJWlA3wZ5N8aoSGtxmlNFk"
-
+TOKEN = "1769114993:AAHvfpJrOpMlo7qI5BElh7L8LDBBs2tRWGw"
+from urllib3 import make_headers
+REQUEST_KWARGS = {
+    'proxy_url': "h http://127.0.0.1:8000/",
+    'urllib3_proxy_kwargs': {
+        'proxy_headers': make_headers(proxy_basic_auth='dasha_lab3:123')
+    }
+}
