@@ -125,7 +125,7 @@ def keyboard_callback_handler(update: Update, chat_data=None, **kwargs):
         )
     elif data == SETTINGS_BUTTON2_SHOW:
         query.edit_message_text(
-            text='show',
+            text='Выберите действие:',
             reply_markup=get_keyboard_settings2(),
         )
     elif data == SETTINGS_BUTTON3_OPEN:
