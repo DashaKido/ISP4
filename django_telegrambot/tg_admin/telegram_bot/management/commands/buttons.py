@@ -1,6 +1,3 @@
-import datetime
-
-from telegram import Bot
 from telegram import Update
 from telegram import KeyboardButton
 from telegram import ReplyKeyboardMarkup

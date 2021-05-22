@@ -1,5 +1,5 @@
 import random
-
+from telegram import Bot
 from django.core.management.base import BaseCommand
 from django.conf import settings
 from logging import getLogger
