@@ -1,0 +1,58 @@
+version: "3"
+
+volumes:
+  local_postgres_data: {}
+  local_postgres_data_backups: {}
+
+services:
+  nginx:
+    image: nginx:alpine
+    container_name: nginx_web
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./testproject:/src
+      - ./config/nginx:/etc/nginx/conf.d
+    depends_on:
+      - web
+
+  bot:
+    build:
+      context: .
+      dockerfile: compose/django/Dockerfile
+    container_name: telegram-bot
+    depends_on:
+      - db
+    volumes:
+      - ./testproject:/src
+    expose:
+      - "8000"
+    env_file:
+      - ./.envs/.django
+    command: ["sh", "-c", "echo hello world; python3 help_bot/telega.py"]
+
+  web:
+    build:
+      context: .
+      dockerfile: compose/django/Dockerfile
+    container_name: django_web
+    depends_on:
+      - db
+    volumes:
+      - ./testproject:/src
+    expose:
+      - "8000"
+    env_file:
+      - ./.envs/.django
+    command: ["sh", "-c", "python3 manage.py migrate; gunicorn HelpBot.wsgi -b 0.0.0.0:8000"]
+
+  db:
+    build:
+      context: .
+      dockerfile: compose/postgres/Dockerfile
+    container_name: postgres_web
+    env_file:
+      - ./.envs/.postgres
+    volumes:
+      - local_postgres_data:/var/lib/postgresql/data
+      - local_postgres_data_backups:/backups
